@@ -1,23 +1,36 @@
-{% extends 'extras/nav.html' %}
+<h1>Tabla de posiciones</h1>
 
-{% load render_table from django_tables2 %}
-{% load static %}
+<a href="{% url 'crear_estadistica' %}">Agregar equipo</a>
 
-{% block pag %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel = "stylesheet" href="{% static 'csss/styles.css' %}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-</head>
-<body>
-    <h1 class="titulo">Tabla de Posiciones</h1>
-    <table class="posiciones">
-    {% render_table table %}
-    </table>
-</body>
-</html>
+<table border="1">
+    <tr>
+        <th>Equipo</th>
+        <th>JJ</th>
+        <th>JG</th>
+        <th>JP</th>
+        <th>Puntos</th>
+        <th>GF</th>
+        <th>GC</th>
+        <th>DIF</th>
+        <th>Amonestaciones</th>
+        <th>Acciones</th>
+    </tr>
 
-{% endblock %}
+    {% for e in tabla %}
+    <tr>
+        <td>{{ e.equipo.nombreequipo }}</td>
+        <td>{{ e.jj }}</td>
+        <td>{{ e.jg }}</td>
+        <td>{{ e.jp }}</td>
+        <td>{{ e.puntos }}</td>
+        <td>{{ e.gaf }}</td>
+        <td>{{ e.gc }}</td>
+        <td>{{ e.dif }}</td>
+        <td>{{ e.amonestaciones }}</td>
+        <td>
+            <a href="{% url 'editar_estadistica' e.id %}">Editar</a>
+            <a href="{% url 'eliminar_estadistica' e.id %}">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

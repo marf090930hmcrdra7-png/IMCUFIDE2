@@ -38,7 +38,7 @@ class estadisticas(models.Model):
     dif = models.IntegerField()
     amonestaciones = models.IntegerField()
     def __str__(self):
-        return self.equipos.nombreequipo
+        return self.equipo.nombreequipo
 
 class partidos(models.Model):
     nombrepartido= models.CharField(max_length=50)

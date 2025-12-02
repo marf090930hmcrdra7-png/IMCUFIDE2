@@ -21,5 +21,10 @@ from Resultados import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.inicio, name='Inicio'),
-    path('Tabla',views.PersonListView.as_view(), name='Tabla')
+    path('Tabla',views.PersonListView.as_view(), name='Tabla'),
+    path("posiciones/", views.tabla_posiciones, name="tabla_posiciones"),
+    path("posiciones/crear/", views.crear_estadistica, name="crear_estadistica"),
+    path("posiciones/editar/<int:id>/", views.editar_estadistica, name="editar_estadistica"),
+    path("posiciones/eliminar/<int:id>/", views.eliminar_estadistica, name="eliminar_estadistica"),
+    
 ]
