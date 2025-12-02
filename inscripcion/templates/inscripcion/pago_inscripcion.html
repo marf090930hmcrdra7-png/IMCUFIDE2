@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Pago de Inscripción - {{ equipo.nombre }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-credit-card"></i> Pagos de inscripción
+                </h4>
+            </div>
+            <div class="card-body">
+                <!-- Información del equipo -->
+                <div class="alert alert-info">
+                    <h5 class="alert-heading">
+                        <i class="bi bi-info-circle"></i> Equipo: {{ equipo.nombre }}
+                    </h5>
+                    <p class="mb-1"><strong>Categoría:</strong> {{ equipo.categoria }}</p>
+                    <p class="mb-0"><strong>Promotor:</strong> {{ equipo.nombre_promotor }}</p>
+                </div>
+
+                <!-- Instrucciones de pago -->
+                <div class="mb-4">
+                    <h5>Información de pago</h5>
+                    <div class="border rounded p-3 bg-light">
+                        <p class="mb-2"><strong>Datos bancarios para transferencia:</strong></p>
+                        <ul class="mb-0">
+                            <li>Banco: Azteca </li>
+                            <li>Cuenta: 1234567890</li>
+                            <li>CLABE: 012345678901234567</li>
+                            <li>Beneficiario: Sistema Deportivo</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Formulario de pago -->
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.monto.label }}</label>
+                            {{ form.monto }}
+                            {% if form.monto.errors %}
+                                <div class="text-danger">{{ form.monto.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.metodo_pago.label }}</label>
+                            {{ form.metodo_pago }}
+                            {% if form.metodo_pago.errors %}
+                                <div class="text-danger">{{ form.metodo_pago.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">{{ form.referencia.label }}</label>
+                        {{ form.referencia }}
+                        {% if form.referencia.errors %}
+                            <div class="text-danger">{{ form.referencia.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">{{ form.comprobante.label }} <span class="text-danger">*</span></label>
+                        {{ form.comprobante }}
+                        <small class="form-text text-muted">
+                            Sube una foto clara del comprobante de pago (formato JPG, PNG o PDF)
+                        </small>
+                        {% if form.comprobante.errors %}
+                            <div class="text-danger">{{ form.comprobante.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">{{ form.notas.label }}</label>
+                        {{ form.notas }}
+                        {% if form.notas.errors %}
+                            <div class="text-danger">{{ form.notas.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-check-circle"></i> Enviar comprobante de pago
+                        </button>
+                        <a href="{% url 'inscripcion:detalle_equipo' equipo.id %}" 
+                           class="btn btn-outline-secondary">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

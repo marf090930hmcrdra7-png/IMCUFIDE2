@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Eliminar Jugador{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'inscripcion:dashboard_promotor' %}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'inscripcion:detalle_equipo' equipo.id %}">{{ equipo.nombre }}</a></li>
+                <li class="breadcrumb-item active">Eliminar Jugador</li>
+            </ol>
+        </nav>
+
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-exclamation-triangle"></i> Confirmar Eliminación
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    {% if jugador.foto %}
+                        <img src="{{ jugador.foto.url }}" alt="{{ jugador.nombre }}" 
+                             class="rounded-circle mb-3" width="100" height="100" style="object-fit: cover;">
+                    {% else %}
+                        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mx-auto mb-3" 
+                             style="width: 100px; height: 100px;">
+                            <i class="bi bi-person text-white" style="font-size: 3rem;"></i>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="alert alert-danger" role="alert">
+                    <h5 class="alert-heading">
+                        <i class="bi bi-exclamation-circle"></i> ¿Estás seguro?
+                    </h5>
+                    <p class="mb-0">
+                        Estás a punto de eliminar al jugador <strong>{{ jugador.nombre }} {{ jugador.apellido }}</strong> 
+                        del equipo <strong>{{ equipo.nombre }}</strong>.
+                    </p>
+                </div>
+
+                <!-- Información del jugador -->
+                <div class="card bg-light mb-4">
+                    <div class="card-body">
+                        <h6 class="card-title">Información del Jugador</h6>
+                        <ul class="list-unstyled mb-0">
+                            <li><strong>Nombre:</strong> {{ jugador.nombre }} {{ jugador.apellido }}</li>
+                            <li><strong>Número de Camiseta:</strong> #{{ jugador.numero_camiseta }}</li>
+                            <li><strong>Posición:</strong> {{ jugador.get_posicion_display }}</li>
+                            <li><strong>Edad:</strong> {{ jugador.edad }} años</li>
+                            <li><strong>Teléfono:</strong> {{ jugador.telefono }}</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning">
+                    <i class="bi bi-info-circle"></i>
+                    <strong>Nota:</strong> El jugador será marcado como inactivo pero no se eliminará permanentemente de la base de datos.
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-danger btn-lg">
+                            <i class="bi bi-trash"></i> Sí, eliminar jugador
+                        </button>
+                        <a href="{% url 'inscripcion:detalle_equipo' equipo.id %}" 
+                           class="btn btn-outline-secondary btn-lg">
+                            <i class="bi bi-x-circle"></i> Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

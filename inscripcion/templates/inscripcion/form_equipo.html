@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'inscripcion:dashboard_promotor' %}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'inscripcion:lista_equipos' %}">Equipos</a></li>
+                <li class="breadcrumb-item active">{{ titulo }}</li>
+            </ol>
+        </nav>
+
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-shield"></i> {{ titulo }}
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <h5 class="mb-3"><i class="bi bi-info-circle"></i> Información del Equipo</h5>
+                    
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label class="form-label">{{ form.nombre.label }} <span class="text-danger">*</span></label>
+                            {{ form.nombre }}
+                            {% if form.nombre.errors %}
+                                <div class="text-danger small mt-1">{{ form.nombre.errors }}</div>
+                            {% endif %}
+                            <small class="form-text text-muted">El nombre debe ser único</small>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">{{ form.categoria.label }} <span class="text-danger">*</span></label>
+                            {{ form.categoria }}
+                            {% if form.categoria.errors %}
+                                <div class="text-danger small mt-1">{{ form.categoria.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">{{ form.logo.label }}</label>
+                        {{ form.logo }}
+                        {% if form.logo.errors %}
+                            <div class="text-danger small mt-1">{{ form.logo.errors }}</div>
+                        {% endif %}
+                        {% if equipo.logo %}
+                            <div class="mt-2">
+                                <img src="{{ equipo.logo.url }}" alt="Logo actual" class="img-thumbnail" style="max-width: 150px;">
+                                <p class="small text-muted">Logo actual</p>
+                            </div>
+                        {% endif %}
+                        <small class="form-text text-muted">Formatos permitidos: JPG, PNG (máx. 5MB)</small>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <h5 class="mb-3"><i class="bi bi-person"></i> Información del Promotor</h5>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">{{ form.nombre_promotor.label }} <span class="text-danger">*</span></label>
+                        {{ form.nombre_promotor }}
+                        {% if form.nombre_promotor.errors %}
+                            <div class="text-danger small mt-1">{{ form.nombre_promotor.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.telefono_promotor.label }} <span class="text-danger">*</span></label>
+                            {{ form.telefono_promotor }}
+                            {% if form.telefono_promotor.errors %}
+                                <div class="text-danger small mt-1">{{ form.telefono_promotor.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.email_promotor.label }} <span class="text-danger">*</span></label>
+                            {{ form.email_promotor }}
+                            {% if form.email_promotor.errors %}
+                                <div class="text-danger small mt-1">{{ form.email_promotor.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i>
+                        Los campos marcados con <span class="text-danger">*</span> son obligatorios
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% if equipo %}{% url 'inscripcion:detalle_equipo' equipo.id %}{% else %}{% url 'inscripcion:lista_equipos' %}{% endif %}" 
+                           class="btn btn-outline-secondary">
+                            <i class="bi bi-x-circle"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle"></i> Guardar Equipo
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}vv

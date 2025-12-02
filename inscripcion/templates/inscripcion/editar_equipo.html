@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Editar equipo: {{ equipo.nombre }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Actualizar</button>
+</form>
+
+<a href="{% url 'detalle_equipo' equipo.id %}">← Volver al equipo</a>
+{% endblock %}

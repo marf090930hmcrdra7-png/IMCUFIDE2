@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Bienvenido Promotor{% endblock %}
+
+{% block content %}
+
+
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-5 mb-1">Bienvenido promotor</h1>
+        <p class="text-muted">Gestiona tus equipos y jugadores</p>
+    </div>
+</div>
+
+<!-- Estadísticas -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-1">Total Equipos</h6>
+                        <h2 class="mb-0">{{ total_equipos }}</h2>
+                    </div>
+                    <div class="text-primary">
+                        <i class="bi bi-shield fs-1"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-1">Equipos Activos</h6>
+                        <h2 class="mb-0 text-success">{{ equipos_activos }}</h2>
+                    </div>
+                    <div class="text-success">
+                        <i class="bi bi-check-circle fs-1"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-1">Pagos Pendientes</h6>
+                        <h2 class="mb-0 text-warning">{{ equipos_pendientes }}</h2>
+                    </div>
+                    <div class="text-warning">
+                        <i class="bi bi-clock fs-1"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Botón registrar equipo -->
+<div class="row mb-4">
+    <div class="col-12">
+        <a href="{% url 'inscripcion:crear_equipo' %}" class="btn btn-primary btn-lg">
+            <i class="bi bi-plus-circle"></i> Registrar nuevo equipo
+        </a>
+    </div>
+</div>
+
+<!-- Lista de equipos -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">Mis Equipos</h5>
+            </div>
+            <div class="card-body">
+                {% if equipos %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Categoría</th>
+                                <th>Jugadores</th>
+                                <th>Estado</th>
+                                <th>Fecha Inscripción</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for equipo in equipos %}
+                            <tr>
+                                <td>
+                                    <strong>{{ equipo.nombre }}</strong>
+                                </td>
+                                <td>{{ equipo.categoria }}</td>
+                                <td>
+                                    <span class="badge bg-info">{{ equipo.num_jugadores }} jugadores</span>
+                                </td>
+                                <td>
+                                    {% if equipo.estado == 'activo' %}
+                                        <span class="badge bg-success">Activo</span>
+                                    {% elif equipo.estado == 'pendiente' %}
+                                        <span class="badge bg-warning text-dark">Pendiente</span>
+                                    {% elif equipo.estado == 'pagado' %}
+                                        <span class="badge bg-info">Pagado</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">{{ equipo.get_estado_display }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ equipo.fecha_inscripcion|date:"d/m/Y" }}</td>
+                                <td>
+                                    <a href="{% url 'inscripcion:detalle_equipo' equipo.id %}" 
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> Ver
+                                    </a>
+                                    <a href="{% url 'inscripcion:editar_equipo' equipo.id %}" 
+                                       class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-inbox display-1 text-muted"></i>
+                    <p class="mt-3 text-muted">No tienes equipos registrados</p>
+                    <a href="{% url 'inscripcion:crear_equipo' %}" class="btn btn-primary">
+                        Registrar mi primer equipo
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

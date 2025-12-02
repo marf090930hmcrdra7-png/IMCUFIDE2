@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'inscripcion:dashboard_promotor' %}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'inscripcion:detalle_equipo' equipo.id %}">{{ equipo.nombre }}</a></li>
+                <li class="breadcrumb-item active">{{ titulo }}</li>
+            </ol>
+        </nav>
+
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-person-plus"></i> {{ titulo }}
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <i class="bi bi-shield"></i>
+                    <strong>Equipo:</strong> {{ equipo.nombre }} - {{ equipo.categoria }}
+                </div>
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <h5 class="mb-3"><i class="bi bi-person"></i> Información Personal</h5>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.nombre.label }} <span class="text-danger">*</span></label>
+                            {{ form.nombre }}
+                            {% if form.nombre.errors %}
+                                <div class="text-danger small mt-1">{{ form.nombre.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.apellido.label }} <span class="text-danger">*</span></label>
+                            {{ form.apellido }}
+                            {% if form.apellido.errors %}
+                                <div class="text-danger small mt-1">{{ form.apellido.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.fecha_nacimiento.label }} <span class="text-danger">*</span></label>
+                            {{ form.fecha_nacimiento }}
+                            {% if form.fecha_nacimiento.errors %}
+                                <div class="text-danger small mt-1">{{ form.fecha_nacimiento.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.edad.label }} <span class="text-danger">*</span></label>
+                            {{ form.edad }}
+                            {% if form.edad.errors %}
+                                <div class="text-danger small mt-1">{{ form.edad.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">{{ form.documento_identidad.label }} <span class="text-danger">*</span></label>
+                        {{ form.documento_identidad }}
+                        {% if form.documento_identidad.errors %}
+                            <div class="text-danger small mt-1">{{ form.documento_identidad.errors }}</div>
+                        {% endif %}
+                        <small class="form-text text-muted">DNI, Pasaporte o identificación oficial</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">{{ form.foto.label }}</label>
+                        {{ form.foto }}
+                        {% if form.foto.errors %}
+                            <div class="text-danger small mt-1">{{ form.foto.errors }}</div>
+                        {% endif %}
+                        {% if jugador.foto %}
+                            <div class="mt-2">
+                                <img src="{{ jugador.foto.url }}" alt="Foto actual" class="img-thumbnail" style="max-width: 150px;">
+                                <p class="small text-muted">Foto actual</p>
+                            </div>
+                        {% endif %}
+                        <small class="form-text text-muted">Foto tipo carnet (opcional)</small>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <h5 class="mb-3"><i class="bi bi-telephone"></i> Información de Contacto</h5>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.telefono.label }} <span class="text-danger">*</span></label>
+                            {{ form.telefono }}
+                            {% if form.telefono.errors %}
+                                <div class="text-danger small mt-1">{{ form.telefono.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.email.label }}</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="text-danger small mt-1">{{ form.email.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">{{ form.direccion.label }}</label>
+                        {{ form.direccion }}
+                        {% if form.direccion.errors %}
+                            <div class="text-danger small mt-1">{{ form.direccion.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <hr class="my-4">
+
+                    <h5 class="mb-3"><i class="bi bi-trophy"></i> Información Deportiva</h5>
+                    
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label class="form-label">{{ form.posicion.label }} <span class="text-danger">*</span></label>
+                            {{ form.posicion }}
+                            {% if form.posicion.errors %}
+                                <div class="text-danger small mt-1">{{ form.posicion.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">{{ form.numero_camiseta.label }} <span class="text-danger">*</span></label>
+                            {{ form.numero_camiseta }}
+                            {% if form.numero_camiseta.errors %}
+                                <div class="text-danger small mt-1">{{ form.numero_camiseta.errors }}</div>
+                            {% endif %}
+                            <small class="form-text text-muted">1-99</small>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        Asegúrate de que el número de camiseta no esté en uso por otro jugador del equipo
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a href="{% url 'inscripcion:detalle_equipo' equipo.id %}" 
+                           class="btn btn-outline-secondary">
+                            <i class="bi bi-x-circle"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle"></i> Guardar Jugador
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.getElementById('id_fecha_nacimiento').addEventListener('change', function() {
+        const fechaNac = new Date(this.value);
+        const hoy = new Date();
+        let edad = hoy.getFullYear() - fechaNac.getFullYear();
+        const mes = hoy.getMonth() - fechaNac.getMonth();
+        
+        if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNac.getDate())) {
+            edad--;
+        }
+        
+        document.getElementById('id_edad').value = edad;
+    });
+</script>
+{% endblock %}

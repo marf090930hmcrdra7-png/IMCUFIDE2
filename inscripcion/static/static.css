@@ -1,0 +1,30 @@
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #64748b;
+}
+
+body {
+    background-color: #f8fafc;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav-link.active {
+    font-weight: 600 !important;
+    color: #fff !important;
+    background: rgba(255,255,255,0.2);
+    border-radius: 8px;
+}
+.card {
+    border: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-radius: 12px;
+}
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #1d4ed8;
+}
