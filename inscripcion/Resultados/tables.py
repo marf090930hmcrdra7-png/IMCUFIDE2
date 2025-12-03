@@ -6,5 +6,5 @@ class estadisticas2(tables.Table):
 
     class Meta:
         model = estadisticas
-        template_name = "django_tables2/bootstrap.html"
-        fields = ("equipo","jg","jp","puntos","gaf","gc","dif","amonestaciones" )
+        fields = ("equipos","jg","jp","puntos","gaf","gc","dif","faltas" )
+        attrs = {"class": "mytable"}

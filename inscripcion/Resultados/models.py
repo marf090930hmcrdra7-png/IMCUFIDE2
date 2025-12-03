@@ -28,7 +28,7 @@ class jugador(models.Model):
     pertenencia = models.ForeignKey(equipo,on_delete=models.CASCADE,default=0)
 
 class estadisticas(models.Model):
-    equipo = models.OneToOneField(equipo,on_delete=models.CASCADE)
+    equipos = models.OneToOneField(equipo,on_delete=models.CASCADE)
     jj = models.IntegerField()
     jg = models.IntegerField()
     jp = models.IntegerField()
@@ -36,7 +36,7 @@ class estadisticas(models.Model):
     gaf = models.IntegerField()
     gc = models.IntegerField()
     dif = models.IntegerField()
-    amonestaciones = models.IntegerField()
+    faltas = models.IntegerField()
     def __str__(self):
         return self.equipos.nombreequipo
 
