@@ -1,6 +1,7 @@
 {% extends 'extras/nav.html' %}
 
 {% load render_table from django_tables2 %}
+{% load export_url from django_tables2 %}
 {% load static %}
 
 {% block pag %}
@@ -31,6 +32,22 @@
     <table class="posiciones">
     {% render_table table %}
     </table>
+    <nav class="botones">
+        <a href="{% export_url "csv" %}">
+    <button>Exportar csv</button>
+        </a>
+        <a href="">
+    <button>Registrar resultados</button>
+        </a>
+        <a href="">
+    <button>Editar Tabla</button>
+        </a>
+        <a href="">
+    <button>Eliminar</button>
+        </a>
+    </nav>
+        
+    </a>
     </section>
 </body>
 </html>

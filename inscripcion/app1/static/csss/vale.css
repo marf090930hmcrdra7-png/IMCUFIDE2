@@ -73,6 +73,8 @@ body{
     background-color: white;
     font-family: Arial, Helvetica, sans-serif;
     border: 1px solid rgba(187, 187, 187, 0.671);
+    width: 100%;
+    table-layout: auto;
 }
 
 .mytable a{
@@ -91,7 +93,7 @@ td{
 .opciones{
     display: flex;
     float: left;
-    padding: 2%;
+    padding: 1.5%;
 }
 
 select{
@@ -106,10 +108,32 @@ select{
     background-color: #fdfcfc;
     border-radius: 8px;
     display: grid;
+    width: 100%;
 }
 
 .titulos{
     font-family: Arial, Helvetica, sans-serif;
     font-style: bold;
     font-size: x-large;
+}
+
+.botones{
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5%;
+}
+
+button{
+    margin-right: 1%;
+    background-color: #f3f3f3;
+    border-radius: 8px;
+    border:rgba(187, 187, 187, 0.671) 1px solid;
+    font-size: medium;
+    color: rgb(0, 0, 0);
+}
+
+button:hover{
+    background-color: rgb(0, 132, 255);
+    transition: 0.7s;
+    cursor: pointer;
 }

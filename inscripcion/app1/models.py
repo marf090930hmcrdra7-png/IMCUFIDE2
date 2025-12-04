@@ -36,7 +36,7 @@ class estadisticas(models.Model):
     gaf = models.IntegerField()
     gc = models.IntegerField()
     dif = models.IntegerField()
-    amonestaciones = models.IntegerField()
+    faltas = models.IntegerField()
     def __str__(self):
         return self.equipos.nombreequipo
 
