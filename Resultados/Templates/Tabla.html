@@ -1,0 +1,55 @@
+{% extends 'extras/nav.html' %}
+
+{% load render_table from django_tables2 %}
+{% load static %}
+
+{% block pag %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href="{% static 'csss/ash.css' %}">
+</head>
+<body>
+    <section class="Seccion">
+    <h1 class="titulos"> Tabla de posiciones </h1>
+    <nav class = "opciones">
+    <select name="Categoria" id="categoria" onchange="window.location.href=this.value;">
+        <option value="/Libre" id="libre">Libre</option>
+        <option value="/Veteranos" id="Veteranos">Veteranos</option>
+    </select>
+    <select name="Rama" id="Rama" onchange="window.location.href=this.value;">
+        <option value="#Varonil" id="Varonil">Varonil</option>
+        <option value="#Femenil" id="Femenil">Femenil</option>
+    </select>
+    <select name="Temporada" id="Temporada">
+        <option value="25-26" id="25-26">25-26</option>
+        <option value="25-26" id="25-26">25-26</option>
+    </select>
+    </nav>
+    <table class="posiciones">
+    {% render_table table %}
+    </table>
+    {% load export_url from django_tables2 %}
+    <nav class="botones">
+        <a href="export{% export_url "csv" %}">
+    <button>Exportar csv</button>
+        </a>
+        <a href="#">
+    <button>Registrar resultados</button>
+        </a>
+        <a href="">
+    <button>Editar Tabla</button>
+        </a>
+        <a href="">
+    <button>Eliminar</button>
+        </a>
+    </nav>
+        
+    </a>
+    </section>
+</body>
+</html>
+
+{% endblock %}
